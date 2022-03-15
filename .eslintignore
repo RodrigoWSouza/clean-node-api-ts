@@ -6,3 +6,4 @@ requirements
 .vscodes
 jest-integration-config.ts
 jest-unit-config.ts
+jest.config.ts

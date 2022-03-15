@@ -8,4 +8,7 @@ module.exports = {
   transform: {
     '.+\\.ts$': 'ts-jest'
   },
+  coveragePathIgnorePatterns: [
+    'index.ts'
+  ]
 }
