@@ -1,4 +1,4 @@
-import { Controller , HttpResponse, HttpRequest, EmailValidator, AddAccount } from './signup-protocols'
+import { Controller , HttpResponse, HttpRequest, EmailValidator, AddAccount } from './'
 import { MissingParamError, InvalidParamError } from '../../errors'
 import { badRequest, serverError, serverSuccess } from '../../helpers/http-helper'
 
