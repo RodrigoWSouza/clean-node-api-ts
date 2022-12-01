@@ -1,7 +1,6 @@
 import { SignUpController } from './signup'
 import { MissingParamError, InvalidParamError, ServerError } from '../../errors'
 import { AddAccount, AddAccountModel, AccountModel } from './'
-import { resolve } from 'path/posix'
 import { EmailValidator } from '@/validation/protocols'
 
 const makeEmailValidator = (): EmailValidator => {
