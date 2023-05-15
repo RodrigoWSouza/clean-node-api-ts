@@ -1,6 +1,9 @@
 import { Validation } from '@/presentation/protocols/validation'
-import { RequiredFieldValidation, CompareFieldValidation } from '../../../presentation/helpers/validators'
-import { ValidationComposite } from '../../../presentation/helpers/validators/validation-composite'
+import {
+  RequiredFieldValidation,
+  CompareFieldValidation ,
+  ValidationComposite
+} from '../../../presentation/helpers/validators'
 import { makeSignUpValidation } from './signup-validation'
 import { EmailValidation } from '../../../presentation/helpers/validators/email-validation'
 import { EmailValidator } from '@/presentation/protocols'
