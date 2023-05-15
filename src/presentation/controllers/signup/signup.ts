@@ -2,7 +2,7 @@ import { AddAccount } from './'
 import { InvalidParamError } from '../../errors'
 import { badRequest, serverError, serverSuccess } from '../../helpers/http/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
-import { Validation } from '@/presentation/helpers/validators/validation'
+import { Validation } from '@/presentation/protocols/validation'
 
 export class SignUpController implements Controller {
   private readonly addAccount: AddAccount
