@@ -7,7 +7,7 @@ import { AccountModel } from '@/domain/models/account'
 const makeController = (): Controller => {
   class ControllerStub implements Controller {
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-      return new Promise(resolve => resolve(serverSuccess(makeFakeAccount())))
+      return Promise.resolve(serverSuccess(makeFakeAccount()))
     }
   }
   return new ControllerStub()
@@ -38,7 +38,7 @@ const makeFakeServerError = (): HttpResponse => {
 const makeLogErrorRepositoryStub = (): LogErrorRepository => {
   class LogErrorRepositoryStub implements LogErrorRepository {
     async logError (stack: string): Promise<void> {
-      return new Promise(resolve => resolve())
+      return Promise.resolve()
     }
   }
   return new LogErrorRepositoryStub()
@@ -85,7 +85,7 @@ describe('LogControllerDecorator', () => {
 
     const logSpy = jest.spyOn(logErrorRepositoryStub, 'logError')
     jest.spyOn(controllerStub, 'handle').mockReturnValueOnce(
-      new Promise(resolve => resolve(makeFakeServerError()))
+      Promise.resolve(makeFakeServerError())
     )
 
     const httpRequest = makeFakeRequest()

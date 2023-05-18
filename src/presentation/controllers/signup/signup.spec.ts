@@ -8,7 +8,7 @@ import { Validation } from '@/presentation/protocols/validation'
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     async add (account: AddAccountModel): Promise<AccountModel> {
-      return new Promise(resolve => resolve(makeFakeAccount()))
+      return Promise.resolve(makeFakeAccount())
     }
   }
   return new AddAccountStub()
