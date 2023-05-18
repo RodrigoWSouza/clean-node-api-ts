@@ -1,2 +1,2 @@
-export * from '@/data/protocols/encrypter'
-export * from '@/data/protocols/add-account-repository'
+export * from '@/data/protocols/criptography/encrypter'
+export * from '@/data/protocols/db/add-account-repository'
