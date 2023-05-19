@@ -1,5 +1,4 @@
-import { AddAccount } from './'
-import { InvalidParamError } from '../../errors'
+import { AddAccount } from '@/domain/usecases/add-account'
 import { badRequest, serverError, serverSuccess } from '../../helpers/http/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 import { Validation } from '@/presentation/protocols/validation'

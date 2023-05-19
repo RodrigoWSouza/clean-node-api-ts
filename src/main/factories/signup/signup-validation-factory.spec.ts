@@ -4,7 +4,7 @@ import {
   CompareFieldValidation ,
   ValidationComposite
 } from '../../../presentation/helpers/validators'
-import { makeSignUpValidation } from './signup-validation'
+import { makeSignUpValidation } from './signup-validation-factory'
 import { EmailValidation } from '../../../presentation/helpers/validators/email-validation'
 import { EmailValidator } from '@/presentation/protocols'
 
