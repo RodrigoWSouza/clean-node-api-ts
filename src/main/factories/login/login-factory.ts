@@ -10,9 +10,9 @@ import { JwtAdapter } from '../../../infra/cryptography/jwt-adapter/jwt-adapter'
 import env from '../../../main/config/env'
 
 export const makeLoginController = (): Controller => {
-  const salt = 12
+  const salt = env.SALT
   const bcryptAdapter = new BcryptAdapter(salt)
-  const jwtAdapter = new JwtAdapter(env.jwtSecret)
+  const jwtAdapter = new JwtAdapter(env.JWT_SECRET)
   const accountMongoRepository = new AccountMongoRepository()
   const dbAuthentication = new DbAuthentication(accountMongoRepository, bcryptAdapter, jwtAdapter, accountMongoRepository)
   const loginController = new LoginController(dbAuthentication, makeLoginValidation())
