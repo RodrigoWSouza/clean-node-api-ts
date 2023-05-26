@@ -73,7 +73,7 @@ describe('SignUp Controller', () => {
   test('Should return 500 if AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut()
     jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
-      return new Promise((resolve, reject) => reject(new Error()))
+      return Promise.reject(new Error())
     })
 
     const httpResponse = await sut.handle(makeFakeRequest())
@@ -111,7 +111,7 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
 
     const httpResponse = await sut.handle(makeFakeRequest())
-    expect(httpResponse).toEqual(serverSuccess(makeFakeAccount()))
+    expect(httpResponse).toEqual(serverSuccess({ accessToken: 'any_token' }))
   })
 
   test('Should call Authenticator with correct values', async () => {
