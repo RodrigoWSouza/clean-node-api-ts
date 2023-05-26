@@ -1,5 +1,4 @@
-import { InvalidParamError, ServerError } from '../../errors'
-import { serverError } from '../../helpers/http/http-helper'
+import { InvalidParamError } from '@/presentation/errors'
 import { EmailValidator } from '@/presentation/protocols'
 import { EmailValidation } from './email-validation'
 
