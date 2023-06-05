@@ -1,9 +1,22 @@
 import { HttpRequest, HttpResponse, Middleware } from '@/presentation/protocols'
 import { AccessDeniedError } from '@/presentation/errors'
 import { forbidden } from '@/presentation/helpers/http/http-helper'
+import { LoadAccountByToken } from '@/domain/usecases/load-account-by-token'
 
 export class AuthMiddleware implements Middleware {
+  constructor (
+    private readonly loadAccountByToken: LoadAccountByToken
+  ) {
+    this.loadAccountByToken = loadAccountByToken
+  }
+
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    return Promise.resolve(forbidden(new AccessDeniedError()))
+    const accessToken = httpRequest.headers?.['x-access-token']
+
+    if (accessToken) {
+      await this.loadAccountByToken.load(accessToken)
+    }
+
+    return forbidden(new AccessDeniedError())
   }
 }
