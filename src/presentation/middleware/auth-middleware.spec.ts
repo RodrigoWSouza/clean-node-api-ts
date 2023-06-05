@@ -1,5 +1,5 @@
 import { AccessDeniedError } from '@/presentation/errors'
-import { forbidden } from '@/presentation/helpers/http/http-helper'
+import { forbidden, serverSuccess } from '@/presentation/helpers/http/http-helper'
 import { HttpRequest } from '@/presentation/protocols'
 import { AuthMiddleware } from './auth-middleware'
 import { LoadAccountByToken } from '@/domain/usecases/load-account-by-token'
@@ -63,5 +63,14 @@ describe('Auth Middleware', () => {
     await sut.handle(makeFakeRequest())
 
     expect(loadSpy).toHaveBeenCalledWith('any_access_token')
+  })
+
+  test('Should return 200 if LoadAccountByToken returns an account', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(makeFakeRequest())
+
+    expect(httpResponse).toStrictEqual(serverSuccess({
+      accountId: 'valid_id'
+    }))
   })
 })
