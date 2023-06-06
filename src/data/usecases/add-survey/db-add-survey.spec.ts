@@ -1,5 +1,5 @@
 import { AddSurveyModel } from '@/domain/usecases'
-import { DbAddSurvey } from './db-add-survey'
+import { DbAddSurvey } from '@/data/usecases/add-survey'
 import { AddSurveyRepository } from '@/data/protocols'
 
 const makeAddSurveyRepository = (): AddSurveyRepository => {

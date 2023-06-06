@@ -1,5 +1,5 @@
 import { AccountModel } from '@/domain/models'
-import { DbAddAccount } from './db-add-account'
+import { DbAddAccount } from '@/data/usecases/add-account'
 import { AddAccountModel } from '@/domain/usecases/add-account'
 import {
   AddAccountRepository,

@@ -1,7 +1,7 @@
 import { AccessDeniedError } from '@/presentation/errors'
 import { forbidden, serverError, serverSuccess } from '@/presentation/helpers/http'
 import { HttpRequest } from '@/presentation/protocols'
-import { AuthMiddleware } from './auth-middleware'
+import { AuthMiddleware } from '@/presentation/middleware'
 import { LoadAccountByToken } from '@/domain/usecases'
 import { AccountModel } from '@/domain/models/account'
 
