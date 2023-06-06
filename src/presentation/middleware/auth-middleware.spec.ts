@@ -1,8 +1,8 @@
 import { AccessDeniedError } from '@/presentation/errors'
-import { forbidden, serverError, serverSuccess } from '@/presentation/helpers/http/http-helper'
+import { forbidden, serverError, serverSuccess } from '@/presentation/helpers/http'
 import { HttpRequest } from '@/presentation/protocols'
 import { AuthMiddleware } from './auth-middleware'
-import { LoadAccountByToken } from '@/domain/usecases/load-account-by-token'
+import { LoadAccountByToken } from '@/domain/usecases'
 import { AccountModel } from '@/domain/models/account'
 
 const makeLoadAccountByToken = (): LoadAccountByToken => {

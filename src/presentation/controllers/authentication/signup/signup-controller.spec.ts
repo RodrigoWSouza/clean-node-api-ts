@@ -4,8 +4,7 @@ import { serverSuccess, serverError, badRequest, forbidden } from '../../../help
 import { HttpRequest } from '@/presentation/protocols/http'
 import { Validation } from '@/presentation/protocols/validation'
 import { AccountModel } from '@/domain/models/account'
-import { AddAccount, AddAccountModel } from '@/domain/usecases/add-account'
-import { Authentication, AuthenticationModel } from '@/domain/usecases/authentication'
+import { AddAccount, AddAccountModel , Authentication, AuthenticationModel } from '@/domain/usecases'
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {

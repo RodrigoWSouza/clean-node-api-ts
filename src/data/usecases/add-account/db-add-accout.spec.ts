@@ -1,4 +1,4 @@
-import { AccountModel } from '@/domain/models/account'
+import { AccountModel } from '@/domain/models'
 import { DbAddAccount } from './db-add-account'
 import { AddAccountModel } from '@/domain/usecases/add-account'
 import {

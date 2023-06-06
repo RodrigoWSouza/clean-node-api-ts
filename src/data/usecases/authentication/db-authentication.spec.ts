@@ -6,7 +6,7 @@ import {
 } from '@/data/protocols'
 import { AccountModel } from '@/domain/models/account'
 import { DbAuthentication } from './db-authentication'
-import { AuthenticationModel } from '@/domain/usecases/authentication'
+import { AuthenticationModel } from '@/domain/usecases'
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'any_id',

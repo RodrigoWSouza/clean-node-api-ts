@@ -2,7 +2,7 @@ import { DbAddAccount } from '@/data/usecases/add-account'
 import { BcryptAdapter } from '@/infra/cryptography/bcrypt-adapter/bcrypt-adapter'
 import { AccountMongoRepository } from '@/infra/db/mongodb/account'
 import env from '@/main/config/env'
-import { AddAccount } from '@/domain/usecases/add-account'
+import { AddAccount } from '@/domain/usecases'
 
 export const makeDbAddAccount = (): AddAccount => {
   const salt = env.SALT
