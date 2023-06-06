@@ -1,7 +1,6 @@
 import { DbAuthentication } from '@/data/usecases/authentication'
 import { AccountMongoRepository } from '@/infra/db/mongodb/account'
-import { BcryptAdapter } from '@/infra/cryptography/bcrypt-adapter/bcrypt-adapter'
-import { JwtAdapter } from '@/infra/cryptography/jwt-adapter/jwt-adapter'
+import { BcryptAdapter , JwtAdapter } from '@/infra/cryptography'
 import env from '@/main/config/env'
 import { Authentication } from '@/domain/usecases'
 

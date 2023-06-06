@@ -1,5 +1,5 @@
 import { DbAddAccount } from '@/data/usecases/add-account'
-import { BcryptAdapter } from '@/infra/cryptography/bcrypt-adapter/bcrypt-adapter'
+import { BcryptAdapter } from '@/infra/cryptography'
 import { AccountMongoRepository } from '@/infra/db/mongodb/account'
 import env from '@/main/config/env'
 import { AddAccount } from '@/domain/usecases'
