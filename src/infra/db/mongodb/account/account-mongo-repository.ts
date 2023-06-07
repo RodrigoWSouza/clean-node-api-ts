@@ -4,6 +4,7 @@ import { AddAccountModel } from '@/domain/usecases'
 import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
 import { LoadAccountByEmailRepository, UpdateAccessTokenRepository } from '@/data/protocols'
 import { LoadAccountByTokenRepository } from '@/data/protocols/db/account/load-account-by-token-repository'
+import env from '@/main/config/env'
 
 export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository {
   async add (accountData: AddAccountModel): Promise<AccountModel> {
@@ -30,7 +31,11 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
     const accountCollection = await MongoHelper.getCollection('accounts')
     const account = await accountCollection.findOne({
       accessToken: token,
-      role
+      $or: [{
+        role
+      }, {
+        role: env.ADMIN_ROLE
+      }]
     })
     return account && MongoHelper.map(account)
   }
