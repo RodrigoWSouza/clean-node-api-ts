@@ -1,7 +1,5 @@
 import { Controller } from '@/presentation/protocols'
-import { DbAddAccount } from '@/data/usecases/add-account'
-import { BcryptAdapter } from '@/infra/cryptography/bcrypt-adapter/bcrypt-adapter'
-import { SignUpController } from '@/presentation/controllers/signup'
+import { SignUpController } from '@/presentation/controllers/authentication/signup'
 import { makeSignUpValidation } from './signup-validation-factory'
 import { makeDbAuthentication } from '@/main/factories/usecases/authentication/db-authentication-factory'
 import { makeDbAddAccount } from '@/main/factories/usecases/add-account/db-add-account-factory'

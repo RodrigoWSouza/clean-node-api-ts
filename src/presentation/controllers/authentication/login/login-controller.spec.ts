@@ -1,8 +1,8 @@
-import { badRequest, serverError, serverSuccess, unauthorized } from '../../helpers/http/http-helper'
-import { LoginController } from './login-controller'
+import { badRequest, serverError, serverSuccess, unauthorized } from '@/presentation/helpers/http/http-helper'
+import { LoginController } from '@/presentation/controllers/authentication'
 import { MissingParamError } from '@/presentation/errors'
 import { HttpRequest } from '@/presentation/protocols'
-import { Authentication, AuthenticationModel } from '@/domain/usecases/authentication'
+import { Authentication, AuthenticationModel } from '@/domain/usecases'
 import { Validation } from '@/presentation/protocols/validation'
 
 const makeAuthentication = (): Authentication => {
