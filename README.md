@@ -1,6 +1,7 @@
 
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
-
+[![Build Status](https://app.travis-ci.com/RodrigoWSouza/clean-node-api-ts.svg?branch=master)](https://app.travis-ci.com/RodrigoWSouza/clean-node-api-ts)
+[![Coverage Status](https://coveralls.io/repos/github/RodrigoWSouza/clean-node-api-ts/badge.svg?branch=)](https://coveralls.io/github/RodrigoWSouza/clean-node-api-ts?branch=)
 # **Clean Node API**
 
 > ## APIs construídas no treinamento
