@@ -4,6 +4,8 @@ import { Validation } from '@/presentation/protocols/validation'
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http'
 import { AddSurvey, AddSurveyModel } from '@/domain/usecases'
 
+jest.useFakeTimers('modern').setSystemTime(new Date())
+
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
     validate (input: any): Error {
@@ -45,7 +47,8 @@ const makeFakeRequest = (): HttpRequest => ({
     answers: [{
       image: 'any_image',
       answer: 'any_answer'
-    }]
+    }],
+    date: new Date()
   }
 })
 
