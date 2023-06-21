@@ -1,7 +1,7 @@
 import { LoadSurveysController } from '@/presentation/controllers/survey'
 import { LoadSurveys } from '@/domain/usecases'
 import { SurveyModel } from '@/domain/models'
-import { serverError, serverSuccess } from '@/presentation/helpers/http'
+import { noContent, serverError, serverSuccess } from '@/presentation/helpers/http'
 
 jest.useFakeTimers('modern').setSystemTime(new Date())
 
@@ -66,6 +66,15 @@ describe('LoadSurveys Controller', () => {
     const HttpResponse = await sut.handle({})
 
     expect(HttpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 204 if LoadSurveys returns empty', async () => {
+    const { sut, loadSurveysStub } = makeSut()
+    jest.spyOn(loadSurveysStub, 'load').mockReturnValueOnce(Promise.resolve([]))
+
+    const HttpResponse = await sut.handle({})
+
+    expect(HttpResponse).toEqual(noContent())
   })
 
   test('Should return 200 on success', async () => {
