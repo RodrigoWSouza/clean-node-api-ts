@@ -84,4 +84,12 @@ describe('Survey Routes', () => {
         .expect(403)
     })
   })
+
+  test('Should return 204 on load surveys with valid accessToken if there no surveys', async () => {
+    const accessToken = await mockAccessToken()
+    await request(app)
+      .get('/api/surveys')
+      .set('x-access-token', accessToken)
+      .expect(204)
+  })
 })
