@@ -76,4 +76,37 @@ describe('Survey Routes', () => {
       })
       .expect(204)
   })
+
+  describe('GET /surveys', () => {
+    test('Should return 403 on load surveys without accessToken', async () => {
+      await request(app)
+        .get('/api/surveys')
+        .expect(403)
+    })
+  })
+
+  test('Should return 204 on load surveys with valid accessToken if there no surveys', async () => {
+    const accessToken = await mockAccessToken()
+    await request(app)
+      .get('/api/surveys')
+      .set('x-access-token', accessToken)
+      .expect(204)
+  })
+
+  test('Should return 200 on load surveys with valid accessToken', async () => {
+    await surveyCollection.insertOne({
+      question: 'Question',
+      answers: [{
+        answer: 'Answer 1',
+        image: 'http://image-name.com'
+      }, {
+        answer: 'Answer 2'
+      }]
+    })
+    const accessToken = await mockAccessToken()
+    await request(app)
+      .get('/api/surveys')
+      .set('x-access-token', accessToken)
+      .expect(200)
+  })
 })

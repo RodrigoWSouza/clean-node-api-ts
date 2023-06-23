@@ -2,6 +2,8 @@ import { AddSurveyModel } from '@/domain/usecases'
 import { DbAddSurvey } from '@/data/usecases/add-survey'
 import { AddSurveyRepository } from '@/data/protocols'
 
+jest.useFakeTimers('modern').setSystemTime(new Date())
+
 const makeAddSurveyRepository = (): AddSurveyRepository => {
   class AddSurveyRepositoryStub implements AddSurveyRepository {
     async add (data: AddSurveyModel): Promise<void> {
@@ -30,7 +32,8 @@ const makeFakeSurveyData = (): AddSurveyModel => ({
   answers: [{
     image: 'any_image',
     answer: 'any_answer'
-  }]
+  }],
+  date: new Date()
 })
 
 describe('DbAddSurvey Usecase', () => {
