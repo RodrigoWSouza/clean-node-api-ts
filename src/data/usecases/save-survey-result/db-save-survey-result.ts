@@ -4,12 +4,12 @@ import { SaveSurveyResult, SaveSurveyResultModel } from '@/domain/usecases'
 
 export class DbSaveSurveyResult implements SaveSurveyResult {
   constructor (
-    private readonly loadSurveysRepository: SaveSurveyResultRepository
+    private readonly saveSurveyResultRepository: SaveSurveyResultRepository
   ) {
-    this.loadSurveysRepository = loadSurveysRepository
+    this.saveSurveyResultRepository = saveSurveyResultRepository
   }
 
   async save (data: SaveSurveyResultModel): Promise<SurveyResultModel> {
-    return this.loadSurveysRepository.save(data)
+    return this.saveSurveyResultRepository.save(data)
   }
 }
