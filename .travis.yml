@@ -4,4 +4,7 @@ node_js:
 script:
   - eslint 'src/**'
   - npm run test:ci
-after_success: npm run test:coveralls
+before_install:   
+  - pip install --user cpp-coveralls
+after_success: 
+  - npm run test:coveralls
