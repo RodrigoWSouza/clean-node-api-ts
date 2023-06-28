@@ -58,23 +58,23 @@ describe('Survey Routes', () => {
         })
         .expect(403)
     })
-  })
 
-  test('Should return 204 on add survey with valid accessToken', async () => {
-    const accessToken = await mockAccessToken()
-    await request(app)
-      .post('/api/surveys')
-      .set('x-access-token', accessToken)
-      .send({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }]
-      })
-      .expect(204)
+    test('Should return 204 on add survey with valid accessToken', async () => {
+      const accessToken = await mockAccessToken()
+      await request(app)
+        .post('/api/surveys')
+        .set('x-access-token', accessToken)
+        .send({
+          question: 'Question',
+          answers: [{
+            answer: 'Answer 1',
+            image: 'http://image-name.com'
+          }, {
+            answer: 'Answer 2'
+          }]
+        })
+        .expect(204)
+    })
   })
 
   describe('GET /surveys', () => {
@@ -83,30 +83,30 @@ describe('Survey Routes', () => {
         .get('/api/surveys')
         .expect(403)
     })
-  })
 
-  test('Should return 204 on load surveys with valid accessToken if there no surveys', async () => {
-    const accessToken = await mockAccessToken()
-    await request(app)
-      .get('/api/surveys')
-      .set('x-access-token', accessToken)
-      .expect(204)
-  })
-
-  test('Should return 200 on load surveys with valid accessToken', async () => {
-    await surveyCollection.insertOne({
-      question: 'Question',
-      answers: [{
-        answer: 'Answer 1',
-        image: 'http://image-name.com'
-      }, {
-        answer: 'Answer 2'
-      }]
+    test('Should return 204 on load surveys with valid accessToken if there no surveys', async () => {
+      const accessToken = await mockAccessToken()
+      await request(app)
+        .get('/api/surveys')
+        .set('x-access-token', accessToken)
+        .expect(204)
     })
-    const accessToken = await mockAccessToken()
-    await request(app)
-      .get('/api/surveys')
-      .set('x-access-token', accessToken)
-      .expect(200)
+
+    test('Should return 200 on load surveys with valid accessToken', async () => {
+      await surveyCollection.insertOne({
+        question: 'Question',
+        answers: [{
+          answer: 'Answer 1',
+          image: 'http://image-name.com'
+        }, {
+          answer: 'Answer 2'
+        }]
+      })
+      const accessToken = await mockAccessToken()
+      await request(app)
+        .get('/api/surveys')
+        .set('x-access-token', accessToken)
+        .expect(200)
+    })
   })
 })
