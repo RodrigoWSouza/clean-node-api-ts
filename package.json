@@ -16,7 +16,7 @@
     "test:integration": "npm test -- --watch -c jest-integration-config.ts",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
-    "test:coveralls": "npm run test:ci && jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
     "clear_jest": "jest --clearCache",
     "prepare": "husky install"
   },
