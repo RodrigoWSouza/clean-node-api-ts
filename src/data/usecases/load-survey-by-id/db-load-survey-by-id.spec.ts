@@ -1,18 +1,10 @@
 import { DbLoadSurveyById } from '@/data/usecases/load-survey-by-id'
 import { LoadSurveyByIdRepository } from '@/data/protocols'
-import { SurveyModel } from '@/domain/models'
 import { throwError } from '@/domain/mocks'
+import { mockSurveyModel } from '@/domain/mocks/mock-survey'
+import { mockLoadSurveyByIdRepository } from '@/data/protocols/mocks'
 
 jest.useFakeTimers('modern').setSystemTime(new Date())
-
-const makeLoadSurveyByIdRepository = (): LoadSurveyByIdRepository => {
-  class LoadSurveyByIdRepositoryStub implements LoadSurveyByIdRepository {
-    async loadById (): Promise<SurveyModel> {
-      return Promise.resolve(makeFakeSurvey())
-    }
-  }
-  return new LoadSurveyByIdRepositoryStub()
-}
 
 type SutTypes = {
   sut: DbLoadSurveyById
@@ -20,23 +12,13 @@ type SutTypes = {
 }
 
 const makeSut = (): SutTypes => {
-  const loadSurveysRepositoryStub = makeLoadSurveyByIdRepository()
+  const loadSurveysRepositoryStub = mockLoadSurveyByIdRepository()
   const sut = new DbLoadSurveyById(loadSurveysRepositoryStub)
   return {
     sut,
     loadSurveysRepositoryStub
   }
 }
-
-const makeFakeSurvey = (): SurveyModel => ({
-  id: 'any_id',
-  question: 'any_question',
-  answers: [{
-    image: 'any_image',
-    answer: 'any_answer'
-  }],
-  date: new Date()
-})
 
 describe('DbLoadSurveyById Usecase', () => {
   test('Should call LoadSurveyByIdRepository with correct params', async () => {
@@ -53,7 +35,7 @@ describe('DbLoadSurveyById Usecase', () => {
 
     const survey = await sut.loadById('any_id')
 
-    expect(survey).toEqual(makeFakeSurvey())
+    expect(survey).toEqual(mockSurveyModel())
   })
 
   test('Should throw if LoadSurveyByIdRepository throws', async () => {

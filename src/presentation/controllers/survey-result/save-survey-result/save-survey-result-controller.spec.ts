@@ -5,13 +5,14 @@ import { SurveyModel, SurveyResultModel } from '@/domain/models'
 import { forbidden, serverError, serverSuccess } from '@/presentation/helpers/http'
 import { InvalidParamError } from '@/presentation/errors'
 import { throwError } from '@/domain/mocks'
+import { mockSurveyModel } from '@/domain/mocks/mock-survey'
 
 jest.useFakeTimers('modern').setSystemTime(new Date())
 
 const makeLoadSurveyById = (): LoadSurveyById => {
   class LoadSurveyByIdStub implements LoadSurveyById {
     async loadById (id: string): Promise<SurveyModel> {
-      return Promise.resolve(makeFakeSurvey())
+      return Promise.resolve(mockSurveyModel())
     }
   }
   return new LoadSurveyByIdStub()
@@ -51,16 +52,6 @@ const makeFakeRequest = (): HttpRequest => ({
     answer: 'any_answer'
   },
   accountId: 'any_account_id'
-})
-
-const makeFakeSurvey = (): SurveyModel => ({
-  id: 'any_id',
-  question: 'any_question',
-  answers: [{
-    image: 'any_image',
-    answer: 'any_answer'
-  }],
-  date: new Date()
 })
 
 const makeFakeSurveyResult = (): SurveyResultModel => ({
