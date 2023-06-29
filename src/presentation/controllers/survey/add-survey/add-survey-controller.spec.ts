@@ -2,7 +2,7 @@ import { HttpRequest } from '@/presentation/protocols'
 import { AddSurveyController } from '@/presentation/controllers/survey'
 import { Validation } from '@/presentation/protocols/validation'
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http'
-import { AddSurvey, AddSurveyModel } from '@/domain/usecases'
+import { AddSurvey, AddSurveyParams } from '@/domain/usecases'
 
 jest.useFakeTimers('modern').setSystemTime(new Date())
 
@@ -17,7 +17,7 @@ const makeValidation = (): Validation => {
 
 const makeAddSurvey = (): AddSurvey => {
   class AddSurveyStub implements AddSurvey {
-    async add (data: AddSurveyModel): Promise<void> {
+    async add (data: AddSurveyParams): Promise<void> {
       return Promise.resolve()
     }
   }

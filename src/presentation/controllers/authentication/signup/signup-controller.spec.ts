@@ -4,11 +4,11 @@ import { serverSuccess, serverError, badRequest, forbidden } from '@/presentatio
 import { HttpRequest } from '@/presentation/protocols/http'
 import { Validation } from '@/presentation/protocols/validation'
 import { AccountModel } from '@/domain/models/account'
-import { AddAccount, AddAccountModel , Authentication, AuthenticationModel } from '@/domain/usecases'
+import { AddAccount, AddAccountParams , Authentication, AuthenticationModel } from '@/domain/usecases'
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
-    async add (account: AddAccountModel): Promise<AccountModel> {
+    async add (account: AddAccountParams): Promise<AccountModel> {
       return Promise.resolve(makeFakeAccount())
     }
   }

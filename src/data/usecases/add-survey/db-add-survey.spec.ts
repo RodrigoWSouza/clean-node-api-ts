@@ -1,4 +1,4 @@
-import { AddSurveyModel } from '@/domain/usecases'
+import { AddSurveyParams } from '@/domain/usecases'
 import { DbAddSurvey } from '@/data/usecases/add-survey'
 import { AddSurveyRepository } from '@/data/protocols'
 
@@ -6,7 +6,7 @@ jest.useFakeTimers('modern').setSystemTime(new Date())
 
 const makeAddSurveyRepository = (): AddSurveyRepository => {
   class AddSurveyRepositoryStub implements AddSurveyRepository {
-    async add (data: AddSurveyModel): Promise<void> {
+    async add (data: AddSurveyParams): Promise<void> {
       return Promise.resolve()
     }
   }
@@ -27,7 +27,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-const makeFakeSurveyData = (): AddSurveyModel => ({
+const makeFakeSurveyData = (): AddSurveyParams => ({
   question: 'any_question',
   answers: [{
     image: 'any_image',
