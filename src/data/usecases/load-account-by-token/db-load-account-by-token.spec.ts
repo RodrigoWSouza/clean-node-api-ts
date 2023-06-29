@@ -6,6 +6,7 @@ import {
   mockAccountModel,
   throwError
 } from '@/domain/mocks'
+import { mockDecrypterStub } from '@/data/protocols/mocks'
 
 const makeLoadAccountByTokenRepositoryStub = (): LoadAccountByTokenRepository => {
   class LoadAccountByTokenRepositoryStub implements LoadAccountByTokenRepository {
@@ -16,15 +17,6 @@ const makeLoadAccountByTokenRepositoryStub = (): LoadAccountByTokenRepository =>
   return new LoadAccountByTokenRepositoryStub()
 }
 
-const makeDecrypterStub = (): Decrypter => {
-  class DecrypterStub implements Decrypter {
-    async decrypt (id: string): Promise<string> {
-      return Promise.resolve('any_value')
-    }
-  }
-  return new DecrypterStub()
-}
-
 type SutTypes = {
   sut: DbLoadAccountByToken
   decrypterStub: Decrypter
@@ -32,7 +24,7 @@ type SutTypes = {
 }
 
 const makeSut = (): SutTypes => {
-  const decrypterStub = makeDecrypterStub()
+  const decrypterStub = mockDecrypterStub()
   const loadAccountByTokenRepositoryStub = makeLoadAccountByTokenRepositoryStub()
   const sut = new DbLoadAccountByToken(
     decrypterStub,
