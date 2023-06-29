@@ -4,6 +4,7 @@ import { HttpRequest } from '@/presentation/protocols'
 import { AuthMiddleware } from '@/presentation/middleware'
 import { LoadAccountByToken } from '@/domain/usecases'
 import { AccountModel } from '@/domain/models/account'
+import { throwError } from '@/domain/mocks'
 
 const makeLoadAccountByToken = (): LoadAccountByToken => {
   class LoadAccountByTokenStub implements LoadAccountByToken {
@@ -68,7 +69,7 @@ describe('Auth Middleware', () => {
 
   test('Should return 500 if LoadAccountByToken throws', async () => {
     const { sut, loadAccountByTokenStub } = makeSut()
-    jest.spyOn(loadAccountByTokenStub, 'load').mockReturnValueOnce(Promise.reject(new Error()))
+    jest.spyOn(loadAccountByTokenStub, 'load').mockImplementationOnce(throwError)
     const httpResponse = await sut.handle(makeFakeRequest())
 
     expect(httpResponse).toEqual(serverError(new Error()))

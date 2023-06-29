@@ -2,6 +2,7 @@ import { LoadSurveysController } from '@/presentation/controllers/survey'
 import { LoadSurveys } from '@/domain/usecases'
 import { SurveyModel } from '@/domain/models'
 import { noContent, serverError, serverSuccess } from '@/presentation/helpers/http'
+import { throwError } from '@/domain/mocks'
 
 jest.useFakeTimers('modern').setSystemTime(new Date())
 
@@ -61,7 +62,7 @@ describe('LoadSurveys Controller', () => {
 
   test('Should return 500 if LoadSurveys throws', async () => {
     const { sut, loadSurveysStub } = makeSut()
-    jest.spyOn(loadSurveysStub, 'load').mockReturnValueOnce(Promise.reject(new Error()))
+    jest.spyOn(loadSurveysStub, 'load').mockImplementationOnce(throwError)
 
     const HttpResponse = await sut.handle({})
 

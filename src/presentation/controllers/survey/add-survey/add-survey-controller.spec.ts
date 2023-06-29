@@ -3,6 +3,7 @@ import { AddSurveyController } from '@/presentation/controllers/survey'
 import { Validation } from '@/presentation/protocols/validation'
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http'
 import { AddSurvey, AddSurveyParams } from '@/domain/usecases'
+import { throwError } from '@/domain/mocks'
 
 jest.useFakeTimers('modern').setSystemTime(new Date())
 
@@ -84,7 +85,7 @@ describe('AddSurvey Controller', () => {
 
   test('Should return 500 if AddSurvey throws', async () => {
     const { sut, addSurveyStub } = makeSut()
-    jest.spyOn(addSurveyStub, 'add').mockReturnValueOnce(Promise.reject(new Error()))
+    jest.spyOn(addSurveyStub, 'add').mockImplementationOnce(throwError)
 
     const HttpResponse = await sut.handle(makeFakeRequest())
 

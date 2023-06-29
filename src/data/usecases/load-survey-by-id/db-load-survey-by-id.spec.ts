@@ -1,6 +1,7 @@
 import { DbLoadSurveyById } from '@/data/usecases/load-survey-by-id'
 import { LoadSurveyByIdRepository } from '@/data/protocols'
 import { SurveyModel } from '@/domain/models'
+import { throwError } from '@/domain/mocks'
 
 jest.useFakeTimers('modern').setSystemTime(new Date())
 
@@ -57,7 +58,7 @@ describe('DbLoadSurveyById Usecase', () => {
 
   test('Should throw if LoadSurveyByIdRepository throws', async () => {
     const { sut, loadSurveysRepositoryStub } = makeSut()
-    jest.spyOn(loadSurveysRepositoryStub, 'loadById').mockReturnValueOnce(Promise.reject(new Error()))
+    jest.spyOn(loadSurveysRepositoryStub, 'loadById').mockImplementationOnce(throwError)
     const promise = sut.loadById('any_id')
 
     await expect(promise).rejects.toThrow()
