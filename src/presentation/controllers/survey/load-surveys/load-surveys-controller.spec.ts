@@ -1,19 +1,10 @@
 import { LoadSurveysController } from '@/presentation/controllers/survey'
 import { LoadSurveys } from '@/domain/usecases'
-import { SurveyModel } from '@/domain/models'
 import { noContent, serverError, serverSuccess } from '@/presentation/helpers/http'
-import { throwError } from '@/domain/mocks'
+import { mockSurveyModels, throwError } from '@/domain/mocks'
+import { mockLoadSurvey } from '@/presentation/mocks'
 
 jest.useFakeTimers('modern').setSystemTime(new Date())
-
-const makeLoadSurvey = (): LoadSurveys => {
-  class AddSurveyStub implements LoadSurveys {
-    async load (): Promise<SurveyModel[]> {
-      return Promise.resolve(makeFakeSurveys())
-    }
-  }
-  return new AddSurveyStub()
-}
 
 type SutTypes = {
   sut: LoadSurveysController
@@ -21,34 +12,13 @@ type SutTypes = {
 }
 
 const makeSut = (): SutTypes => {
-  const loadSurveysStub = makeLoadSurvey()
+  const loadSurveysStub = mockLoadSurvey()
   const sut = new LoadSurveysController(loadSurveysStub)
   return {
     sut,
     loadSurveysStub
   }
 }
-
-const makeFakeSurveys = (): SurveyModel[] => [
-  {
-    id: 'any_id',
-    question: 'any_question',
-    answers: [{
-      image: 'any_image',
-      answer: 'any_answer'
-    }],
-    date: new Date()
-  },
-  {
-    id: 'other_id',
-    question: 'other_question',
-    answers: [{
-      image: 'other_image',
-      answer: 'other_answer'
-    }],
-    date: new Date()
-  }
-]
 
 describe('LoadSurveys Controller', () => {
   test('Should call LoadSurveys', async () => {
@@ -83,6 +53,6 @@ describe('LoadSurveys Controller', () => {
 
     const HttpResponse = await sut.handle({})
 
-    expect(HttpResponse).toEqual(serverSuccess(makeFakeSurveys()))
+    expect(HttpResponse).toEqual(serverSuccess(mockSurveyModels()))
   })
 })
