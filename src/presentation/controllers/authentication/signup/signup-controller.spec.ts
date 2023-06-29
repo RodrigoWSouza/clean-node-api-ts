@@ -4,13 +4,21 @@ import { serverSuccess, serverError, badRequest, forbidden } from '@/presentatio
 import { HttpRequest } from '@/presentation/protocols/http'
 import { Validation } from '@/presentation/protocols/validation'
 import { AccountModel } from '@/domain/models/account'
-import { AddAccount, AddAccountParams , Authentication, AuthenticationModel } from '@/domain/usecases'
-import { throwError } from '@/domain/mocks'
+import {
+  AddAccount,
+  AddAccountParams ,
+  Authentication,
+  AuthenticationModel
+} from '@/domain/usecases'
+import {
+  mockAccountModel,
+  throwError
+} from '@/domain/mocks'
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     async add (account: AddAccountParams): Promise<AccountModel> {
-      return Promise.resolve(makeFakeAccount())
+      return Promise.resolve(mockAccountModel())
     }
   }
   return new AddAccountStub()
@@ -33,12 +41,6 @@ const makeAuthentication = (): Authentication => {
   }
   return new AuthenticationStub()
 }
-const makeFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@mail.com',
-  password: 'valid_password'
-})
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
