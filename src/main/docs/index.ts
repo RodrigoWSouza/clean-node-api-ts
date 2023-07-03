@@ -23,7 +23,7 @@ export default {
     description: 'Servidor Principal'
   }],
   tags: [{
-    name: 'Login',
+    name: 'Auth',
     description: 'APIs relacionadas a Login'
   }, {
     name: 'Enquete',
