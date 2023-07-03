@@ -1,6 +1,6 @@
 {
   "name": "clean-node-api",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -57,6 +57,7 @@
     "module-alias": "^2.2.3",
     "mongodb": "3.6.3",
     "nodemon": "2.0.22",
+    "swagger-ui-express": "^4.6.3",
     "validator": "13.7.0"
   },
   "engines": {
