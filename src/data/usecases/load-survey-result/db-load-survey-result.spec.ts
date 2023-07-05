@@ -8,7 +8,6 @@ import {
   mockLoadSurveyResultRepository
 } from '@/data/protocols/mocks'
 import {
-  mockSurveyModel,
   mockSurveyResultModel,
   throwError
 } from '@/domain/mocks'
@@ -56,6 +55,15 @@ describe('DbLoadSurveyResult Usecase', () => {
     await sut.load('any_survey_id')
 
     expect(loadByIdSpy).toHaveBeenCalledWith('any_survey_id')
+  })
+
+  test('Should call LoadSurveyByIdRepository with all answers with count attribute 0 if LoadSurveyResultRepository returns null', async () => {
+    const { sut, loadSurveyResultRepositoryStub } = makeSut()
+    jest.spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId').mockReturnValueOnce(Promise.resolve(null))
+
+    const surveyResult = await sut.load('any_survey_id')
+
+    expect(surveyResult).toEqual(mockSurveyResultModel())
   })
 
   test('Should throw if LoadSurveyResultRepository throws', async () => {
