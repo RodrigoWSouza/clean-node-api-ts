@@ -2,7 +2,8 @@ import { DbLoadSurveyResult } from '@/data/usecases/load-survey-result'
 import { LoadSurveyResultRepository } from '@/data/protocols'
 import { mockLoadSurveyResultRepository } from '@/data/protocols/mocks'
 import {
-  mockSurveyResultModel
+  mockSurveyResultModel,
+  throwError
 } from '@/domain/mocks'
 
 jest.useFakeTimers('modern').setSystemTime(new Date())
@@ -36,5 +37,13 @@ describe('DbLoadSurveyResult Usecase', () => {
     const surveyResult = await sut.load('any_survey_id')
 
     expect(surveyResult).toEqual(mockSurveyResultModel())
+  })
+
+  test('Should throw if LoadSurveyResultRepository throws', async () => {
+    const { sut, loadSurveyResultRepositoryStub } = makeSut()
+    jest.spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId').mockImplementationOnce(throwError)
+    const promise = sut.load('any_survey_id')
+
+    await expect(promise).rejects.toThrow()
   })
 })
