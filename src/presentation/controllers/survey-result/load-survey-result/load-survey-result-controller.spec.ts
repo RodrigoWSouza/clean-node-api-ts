@@ -2,8 +2,9 @@ import { HttpRequest } from '@/presentation/protocols'
 import { LoadSurveyById } from '@/domain/usecases'
 import { LoadSurveyResultController } from './load-survey-result-controller'
 import { mockLoadSurveyById } from '@/presentation/mocks'
-import { forbidden } from '@/presentation/helpers/http'
+import { forbidden, serverError } from '@/presentation/helpers/http'
 import { InvalidParamError } from '@/presentation/errors'
+import { throwError } from '@/domain/mocks'
 
 jest.useFakeTimers('modern').setSystemTime(new Date())
 
@@ -43,5 +44,14 @@ describe('LoadSurveyResult Controller', () => {
     const httpResponse = await sut.handle(mockRequest())
 
     expect(httpResponse).toEqual(forbidden(new InvalidParamError('surveyId')))
+  })
+
+  test('Should return 500 if LoadSurveyById throws', async () => {
+    const { sut, loadSurveyByIdStub } = makeSut()
+    jest.spyOn(loadSurveyByIdStub, 'loadById').mockImplementationOnce(throwError)
+
+    const httpResponse = await sut.handle(mockRequest())
+
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
