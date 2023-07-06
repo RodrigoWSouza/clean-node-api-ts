@@ -1,7 +1,7 @@
 import { HttpRequest } from '@/presentation/protocols'
-import { LoadSurveyById } from '@/domain/usecases'
+import { LoadSurveyById, LoadSurveyResult } from '@/domain/usecases'
 import { LoadSurveyResultController } from './load-survey-result-controller'
-import { mockLoadSurveyById } from '@/presentation/mocks'
+import { mockLoadSurveyById, mockLoadSurveyResult } from '@/presentation/mocks'
 import { forbidden, serverError } from '@/presentation/helpers/http'
 import { InvalidParamError } from '@/presentation/errors'
 import { throwError } from '@/domain/mocks'
@@ -11,14 +11,17 @@ jest.useFakeTimers('modern').setSystemTime(new Date())
 type SutTypes = {
   sut: LoadSurveyResultController
   loadSurveyByIdStub: LoadSurveyById
+  loadSurveyResultStub: LoadSurveyResult
 }
 
 const makeSut = (): SutTypes => {
   const loadSurveyByIdStub = mockLoadSurveyById()
-  const sut = new LoadSurveyResultController(loadSurveyByIdStub)
+  const loadSurveyResultStub = mockLoadSurveyResult()
+  const sut = new LoadSurveyResultController(loadSurveyByIdStub, loadSurveyResultStub)
   return {
     sut,
-    loadSurveyByIdStub
+    loadSurveyByIdStub,
+    loadSurveyResultStub
   }
 }
 
@@ -53,5 +56,14 @@ describe('LoadSurveyResult Controller', () => {
     const httpResponse = await sut.handle(mockRequest())
 
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should call LoadSurveyResult with correct params', async () => {
+    const { sut, loadSurveyResultStub } = makeSut()
+    const loadSurveyByIdSpy = jest.spyOn(loadSurveyResultStub, 'load')
+    const httpRequest = mockRequest()
+    await sut.handle(httpRequest)
+
+    expect(loadSurveyByIdSpy).toHaveBeenCalledWith(httpRequest.params.surveyId)
   })
 })
