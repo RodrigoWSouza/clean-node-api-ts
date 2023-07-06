@@ -2,9 +2,9 @@ import { HttpRequest } from '@/presentation/protocols'
 import { LoadSurveyById, LoadSurveyResult } from '@/domain/usecases'
 import { LoadSurveyResultController } from './load-survey-result-controller'
 import { mockLoadSurveyById, mockLoadSurveyResult } from '@/presentation/mocks'
-import { forbidden, serverError } from '@/presentation/helpers/http'
+import { forbidden, serverError, serverSuccess } from '@/presentation/helpers/http'
 import { InvalidParamError } from '@/presentation/errors'
-import { throwError } from '@/domain/mocks'
+import { mockSurveyResultModel, throwError } from '@/domain/mocks'
 
 jest.useFakeTimers('modern').setSystemTime(new Date())
 
@@ -74,5 +74,13 @@ describe('LoadSurveyResult Controller', () => {
     const httpResponse = await sut.handle(mockRequest())
 
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 200 on success', async () => {
+    const { sut } = makeSut()
+
+    const httpResponse = await sut.handle(mockRequest())
+
+    expect(httpResponse).toEqual(serverSuccess(mockSurveyResultModel()))
   })
 })
